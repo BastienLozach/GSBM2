@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/views/Body/ConsulterFicheDeFrais.html.twig</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Controller/DetailController.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/config/routing.yml</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/FicheFrais.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Controller/ConsulterController.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/LigneFraisHorsForfait.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Form/FicheFraisType.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/Etat.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/views/Body/DetailFicheDeFrais.html.twig</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Controller/RenseignerController.php</file>
+            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/views/Template/Template.html.twig</file>
+        </group>
     </open-files>
 </project-private>

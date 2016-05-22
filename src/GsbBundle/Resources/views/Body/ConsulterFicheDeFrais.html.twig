@@ -1,7 +1,7 @@
 {% extends "GsbBundle:Template:Template.html.twig"%}
 
 {% block title %}
-    Consulter fiche de frais
+    {{ detailPage.titre }}
 {% endblock %}
 
 {% block body %}
@@ -16,20 +16,36 @@
         </div>    
         
         <div class="row">
-            <div class="col-md-2">
-                {{ form_start(form) }}
-                <label>Date : </label>
-                {{ form_widget(form.mois.day, { 'attr': {'style': 'display:none'} }) }} 
-                {{ form_widget(form.mois.month, { 'attr': {'class': 'form-control'} }) }}
-                {{ form_widget(form.mois.year, { 'attr': {'class': 'form-control'} }) }}
-                
-                <label>Visiteur : </label>
-                {{ form_widget(form.visiteur, { 'attr' : { 'class': 'form-control' } }) }}
-                
-                {{ form_widget(form.rechercher, { 'attr' : { 'class': 'btn btn-primary' } }) }}
-                
-                {{ form_end(form) }}
+            {{ form_start(form) }}
+            <div class="col-md-1">
+                <label>Mois : </label>
             </div>
+            <div class="col-md-1">
+                {{ form_widget(form.mois, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="col-md-1">
+                <label>Annee : </label>
+            </div>
+            <div class="col-md-1">
+                {{ form_widget(form.annee, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            {% if app.session.get("typeUtilisateur") == "comptable" %}
+            <div class="col-md-1">
+                <label>Visiteur : </label>
+            </div>
+            <div class="col-md-2">
+                {{ form_widget(form.visiteur, { 'attr' : { 'class': 'form-control' } }) }} 
+            </div>
+            {% endif %}
+            <div class="col-md-1">
+                {{ form_widget(form.rechercher, { 'attr' : { 'class': 'btn btn-primary' } }) }}
+            </div>
+            <div class="col-md-1">
+                <a href="{{ path( detailPage.page ) }}" >
+                    <button onClick="reinitialiser" class="btn btn-primary">Réinitialiser</button>
+                </a>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 </div>
@@ -50,14 +66,18 @@
             <th>Num</th>
             <th>Date</th>
             <th>Visiteur</th>
-            <th>Détails</th>
+            <th>Options</th>
             
             {% for fiche in fiches %}
                 <tr>
                     <td>{{ fiche.id }}</td>
                     <td>{{ fiche.mois }}/{{ fiche.annee }}</td>
                     <td>{{ fiche.visiteur.nom }}</td>
-                    <td>test</td>
+                    <td>
+                        <a href="{{ path( detailPage.boutonDetail , { 'id': fiche.id}) }}">
+                            <button class="btn btn-primary">Détails</button>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             
@@ -65,5 +85,12 @@
         </table>
     </div>
 </div>
+            
+            
+<script type="text/javascript">
+    document.getElementById("form_mois").value = "";
+    document.getElementById("form_annee").value = "";
+    document.getElementById("form_visiteur").value = "";
+</script>
             
 {% endblock %}

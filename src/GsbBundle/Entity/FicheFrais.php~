@@ -204,4 +204,124 @@ class FicheFrais
     {
         return $this->dateModif;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ligneFraisHorsForfait = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ligneFraisForfait = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ligneFraisHorsForfait
+     *
+     * @param \GsbBundle\Entity\LigneFraisHorsForfait $ligneFraisHorsForfait
+     * @return FicheFrais
+     */
+    public function addLigneFraisHorsForfait(\GsbBundle\Entity\LigneFraisHorsForfait $ligneFraisHorsForfait)
+    {
+        $this->ligneFraisHorsForfait[] = $ligneFraisHorsForfait;
+
+        return $this;
+    }
+
+    /**
+     * Remove ligneFraisHorsForfait
+     *
+     * @param \GsbBundle\Entity\LigneFraisHorsForfait $ligneFraisHorsForfait
+     */
+    public function removeLigneFraisHorsForfait(\GsbBundle\Entity\LigneFraisHorsForfait $ligneFraisHorsForfait)
+    {
+        $this->ligneFraisHorsForfait->removeElement($ligneFraisHorsForfait);
+    }
+
+    /**
+     * Get ligneFraisHorsForfait
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLigneFraisHorsForfait()
+    {
+        return $this->ligneFraisHorsForfait;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param \GsbBundle\Entity\Etat $etat
+     * @return FicheFrais
+     */
+    public function setEtat(\GsbBundle\Entity\Etat $etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return \GsbBundle\Entity\Etat 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set visiteur
+     *
+     * @param \GsbBundle\Entity\Visiteur $visiteur
+     * @return FicheFrais
+     */
+    public function setVisiteur(\GsbBundle\Entity\Visiteur $visiteur)
+    {
+        $this->visiteur = $visiteur;
+
+        return $this;
+    }
+
+    /**
+     * Get visiteur
+     *
+     * @return \GsbBundle\Entity\Visiteur 
+     */
+    public function getVisiteur()
+    {
+        return $this->visiteur;
+    }
+
+    /**
+     * Add ligneFraisForfait
+     *
+     * @param \GsbBundle\Entity\LigneFraisForfait $ligneFraisForfait
+     * @return FicheFrais
+     */
+    public function addLigneFraisForfait(\GsbBundle\Entity\LigneFraisForfait $ligneFraisForfait)
+    {
+        $this->ligneFraisForfait[] = $ligneFraisForfait;
+
+        return $this;
+    }
+
+    /**
+     * Remove ligneFraisForfait
+     *
+     * @param \GsbBundle\Entity\LigneFraisForfait $ligneFraisForfait
+     */
+    public function removeLigneFraisForfait(\GsbBundle\Entity\LigneFraisForfait $ligneFraisForfait)
+    {
+        $this->ligneFraisForfait->removeElement($ligneFraisForfait);
+    }
+
+    /**
+     * Get ligneFraisForfait
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLigneFraisForfait()
+    {
+        return $this->ligneFraisForfait;
+    }
 }

@@ -46,13 +46,13 @@
                 
                 {% if app.session.get("typeUtilisateur") == "comptable" %}
                     <li>
-                        <a href="#">Liste des fiches de frais à valider</a>
+                        <a href="{{ path("gsb_consulterAValider") }}">Liste des fiches de frais à valider</a>
                     </li>
                     <li>
-                        <a href="#">Historique des fiches de frais</a>
+                        <a href="{{ path("gsb_consulterHistorique") }}">Historique des fiches de frais</a>
                     </li>
                     <li>
-                        <a href="#">Liste des fiches des frais à rembourser</a>
+                        <a href="{{ path("gsb_consulterARembourser") }}">Liste des fiches des frais à rembourser</a>
                     </li>
                 {% elseif app.session.get("typeUtilisateur") == "visiteur" %}
                     <li>

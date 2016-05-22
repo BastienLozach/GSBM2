@@ -53,7 +53,7 @@ class ConnexionController extends Controller
                 
                 $session->set("typeUtilisateur", $utilisateurLambda->getType());
                 $session->set("utilisateur", $utilisateur);
-                return $this->redirectToRoute("gsb_consulter");
+                return $this->redirectToRoute("gsb_consulterHistorique");
             }
             return $this->render('GsbBundle:Connexion:Connexion.html.twig', array('form' => $form->createView()));
         }

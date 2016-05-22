@@ -43,9 +43,7 @@ class LigneFraisHorsForfait
     private $montant;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="etat", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="GsbBundle\Entity\Etat")
      */
     private $etat;
 
@@ -155,5 +153,28 @@ class LigneFraisHorsForfait
     public function getEtat()
     {
         return $this->etat;
+    }
+
+    /**
+     * Set ficheFrais
+     *
+     * @param \GsbBundle\Entity\FicheFrais $ficheFrais
+     * @return LigneFraisHorsForfait
+     */
+    public function setFicheFrais(\GsbBundle\Entity\FicheFrais $ficheFrais)
+    {
+        $this->ficheFrais = $ficheFrais;
+
+        return $this;
+    }
+
+    /**
+     * Get ficheFrais
+     *
+     * @return \GsbBundle\Entity\FicheFrais 
+     */
+    public function getFicheFrais()
+    {
+        return $this->ficheFrais;
     }
 }

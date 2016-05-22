@@ -43,9 +43,7 @@ class LigneFraisHorsForfait
     private $montant;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="etat", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="GsbBundle\Entity\Etat")
      */
     private $etat;
 

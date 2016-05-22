@@ -102,4 +102,67 @@ class Visiteur
     {
         return $this->prenom;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ficheFrais = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ficheFrais
+     *
+     * @param \GsbBundle\Entity\FicheFrais $ficheFrais
+     * @return Visiteur
+     */
+    public function addFicheFrai(\GsbBundle\Entity\FicheFrais $ficheFrais)
+    {
+        $this->ficheFrais[] = $ficheFrais;
+
+        return $this;
+    }
+
+    /**
+     * Remove ficheFrais
+     *
+     * @param \GsbBundle\Entity\FicheFrais $ficheFrais
+     */
+    public function removeFicheFrai(\GsbBundle\Entity\FicheFrais $ficheFrais)
+    {
+        $this->ficheFrais->removeElement($ficheFrais);
+    }
+
+    /**
+     * Get ficheFrais
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFicheFrais()
+    {
+        return $this->ficheFrais;
+    }
+
+    /**
+     * Set utilisateur
+     *
+     * @param \GsbBundle\Entity\Utilisateur $utilisateur
+     * @return Visiteur
+     */
+    public function setUtilisateur(\GsbBundle\Entity\Utilisateur $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \GsbBundle\Entity\Utilisateur 
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
 }

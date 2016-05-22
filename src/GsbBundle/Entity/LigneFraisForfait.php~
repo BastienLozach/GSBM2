@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LigneFraisForfait
  *
- * @ORM\Table(name="LigenFraisForfait")
+ * @ORM\Table(name="LigneFraisForfait")
  * @ORM\Entity(repositoryClass="GsbBundle\Entity\LigneFraisForfaitRepository")
  */
 class LigneFraisForfait
@@ -71,5 +71,51 @@ class LigneFraisForfait
     public function getQuantite()
     {
         return $this->quantite;
+    }
+
+    /**
+     * Set fraisForfait
+     *
+     * @param \GsbBundle\Entity\FraisForfait $fraisForfait
+     * @return LigneFraisForfait
+     */
+    public function setFraisForfait(\GsbBundle\Entity\FraisForfait $fraisForfait)
+    {
+        $this->fraisForfait = $fraisForfait;
+
+        return $this;
+    }
+
+    /**
+     * Get fraisForfait
+     *
+     * @return \GsbBundle\Entity\FraisForfait 
+     */
+    public function getFraisForfait()
+    {
+        return $this->fraisForfait;
+    }
+
+    /**
+     * Set ficheFrais
+     *
+     * @param \GsbBundle\Entity\FicheFrais $ficheFrais
+     * @return LigneFraisForfait
+     */
+    public function setFicheFrais(\GsbBundle\Entity\FicheFrais $ficheFrais)
+    {
+        $this->ficheFrais = $ficheFrais;
+
+        return $this;
+    }
+
+    /**
+     * Get ficheFrais
+     *
+     * @return \GsbBundle\Entity\FicheFrais 
+     */
+    public function getFicheFrais()
+    {
+        return $this->ficheFrais;
     }
 }

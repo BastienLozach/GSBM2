@@ -133,4 +133,50 @@ class Utilisateur
     {
         return $this->type;
     }
+
+    /**
+     * Set visiteur
+     *
+     * @param \GsbBundle\Entity\Visiteur $visiteur
+     * @return Utilisateur
+     */
+    public function setVisiteur(\GsbBundle\Entity\Visiteur $visiteur = null)
+    {
+        $this->visiteur = $visiteur;
+
+        return $this;
+    }
+
+    /**
+     * Get visiteur
+     *
+     * @return \GsbBundle\Entity\Visiteur 
+     */
+    public function getVisiteur()
+    {
+        return $this->visiteur;
+    }
+
+    /**
+     * Set comptable
+     *
+     * @param \GsbBundle\Entity\Comptable $comptable
+     * @return Utilisateur
+     */
+    public function setComptable(\GsbBundle\Entity\Comptable $comptable = null)
+    {
+        $this->comptable = $comptable;
+
+        return $this;
+    }
+
+    /**
+     * Get comptable
+     *
+     * @return \GsbBundle\Entity\Comptable 
+     */
+    public function getComptable()
+    {
+        return $this->comptable;
+    }
 }

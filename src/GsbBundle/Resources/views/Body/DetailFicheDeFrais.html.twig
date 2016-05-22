@@ -7,7 +7,7 @@
 {% block body %}
 <div class="row">
     
-    {% if typeUtilisateur == "comptable" %}
+    {% if app.session.get("typeUtilisateur") == "comptable" %}
         <dl class="dl-horizontal">
             <dt>Visiteur</dt>
             <dd>{{fiche.visiteur.nom}} {{fiche.visiteur.prenom}}</dd>
@@ -21,12 +21,12 @@
     
     <dl class="dl-horizontal">
         <dt>Dernière modification</dt>
-        <dd>{{fiche.dateModif}}</dd>
+        <dd>{{fiche.dateModif|date('d/m/y')}}</dd>
     </dl>
     
     <dl class="dl-horizontal">
         <dt>Etat</dt>
-        <dd>{{fiche.etat}}</dd>
+        <dd>{{fiche.etat.libelle}}</dd>
     </dl>
     
     {# version tableau
@@ -49,18 +49,17 @@
     <h1>Frais au Forfait</h1>
             
     <table class="table table-bordered">    
-        <th>
-            <td>Frais</td>
-            <td>a l'unite</td>
-            <td>quantite</td>
-            <td>montant total</td>
-        </th>
+        
+        <th>Frais</th>
+        <th>a l'unite</th>
+        <th>quantite</th>
+        <th>montant total</th>
         {% for ligneF in fiche.LigneFraisForfait %}
         <tr>
             <td>{{ligneF.fraisForfait.libelle}}</td>
             <td>{{ligneF.fraisForfait.montant}}</td>
             <td>{{ligneF.quantite}}</td>
-            <td>{{ligneFF.quantite * ligneF.fraisForfait.montant}}</td>
+            <td>{{ligneF.quantite * ligneF.fraisForfait.montant}}</td>
         </tr>   
         
         {% endfor%}
@@ -70,22 +69,34 @@
     <h1>Frais Hors Forfait</h1>
             
     <table class="table table-bordered">    
-        <th>
-            <td>libelle</td>
-            <td>date</td>
-            <td>montant</td>
-            <td>etat</td>
-        </th>
+        <th>libelle</th>
+        <th>date</th>
+        <th>montant</th>
+        <th>etat</th>
+        <th>options</th>
         {% for ligneHF in fiche.LigneFraisHorsForfait %}
         <tr>
             <td>{{ligneHF.libelle}}</td>
-            <td>{{ligneHF.date}}</td>
+            <td>{{ligneHF.dateFrais.format("d/m/y")}}</td>
             <td>{{ligneHF.montant}}</td>
-            <td>{{ligneHF.etat}}</td>
+            <td>{{ligneHF.etat.libelle}}</td>
+            {% if ligneHF.etat.libelle == "A VALIDER" %}
+                <td>
+                    <button class="btn btn-success">Valider</button>
+                    <button class="btn btn-danger">Refuser</button>
+                </td>
+            {% endif %}
         </tr>   
         
         {% endfor%}
     </table>    
+    
+    <button class="btn btn-success">Valider</button>
+    
+    <a href="{{ path("gsb_consulterHistorique") }}">
+        <button class="btn btn-primary">Retour</button>
+    </a>
+    
     
 </div>
 {% endblock %}

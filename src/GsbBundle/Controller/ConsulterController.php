@@ -6,12 +6,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConsulterController extends Controller
-{
+{   
     
-    public function consulterAction(){
+    public function consulterHistoriqueAction(){
+        $detailPage = array();
+        
+        $detailPage["titre"] = "Consulter fiche de frais";
+        $detailPage["boutonDetail"] = "gsb_detailFiche";
+        $detailPage["page"] = "gsb_consulterHistorique";
+        
+        return $this->consulter($detailPage);
+    }
+    
+    public function consulterARembourserAction(){
+        $detailPage = array();
+        
+        $detailPage["titre"] = "Consulter fiche de frais a rembourser";
+        $detailPage["boutonDetail"] = "gsb_detailFicheARembourser";
+        $detailPage["page"] = "gsb_consulterARembourser";
+        
+        return $this->consulter($detailPage);
+    }
+    
+    public function consulterAValiderAction(){
+        $detailPage = array();
+        
+        $detailPage["titre"] = "Consulter fiche de frais a valider";
+        $detailPage["boutonDetail"] = "gsb_detailFicheAValider";
+        $detailPage["page"] = "gsb_consulterAValider";
+        
+        return $this->consulter($detailPage);
+    }
+    
+    private function consulter($detailPage){
         // Récupération des services
-        $rep = $this->getDoctrine()->getRepository("GsbBundle:FicheFrais");
+        $repFicheFrais = $this->getDoctrine()->getRepository("GsbBundle:FicheFrais");
+        $repVisiteur = $this->getDoctrine()->getRepository("GsbBundle:Visiteur");
+        $repEtat = $this->getDoctrine()->getRepository("GsbBundle:Etat");
         // Fin récupération des services
+        
+        switch($detailPage["page"]){
+            case "gsb_consulterHistorique":
+                $fiches = $repFicheFrais->findAll();
+                break;
+            case "gsb_consulterARembourser":
+                $etat = $repEtat->findOneById(2);
+                $fiches = $repFicheFrais->findBy(array("etat" => $etat));
+                break;
+            case "gsb_consulterAValider":
+                $etat = $repEtat->findOneById(1);
+                $fiches = $repFicheFrais->findBy(array("etat" => $etat));
+                break;
+            default:
+                break;
+        }
+        
         
         $session = $this->get("session");
         if($session->get("typeUtilisateur") == null){
@@ -19,18 +68,43 @@ class ConsulterController extends Controller
         }
         
         $form = $this->createFormBuilder()
-                ->add("mois", "date")
-                ->add("visiteur", "text")
+                ->add("mois", "integer", array("required"=>false))
+                ->add("annee", "integer", array("required"=>false))
+                ->add("visiteur", "text", array("required"=>false))
                 ->add("rechercher", "submit")
                 ->getForm();
         
+        $request = $this->container->get('request');
+        $form->handleRequest($request);
         
-        $fiches = $rep->findAll();
+        $test = "rien";
+        
+        if($form->isValid()){
+            $donnee = $form->getData();
+            $mois = $donnee["mois"];
+            $annee = $donnee["annee"];
+            $visiteur = $donnee["visiteur"];
+            
+            $array = array();
+            
+            if($mois != ""){
+                $array["mois"] = $mois;
+            }
+            
+            if($annee != ""){
+                $array["annee"] = $annee;
+            }
+            
+            if($visiteur != ""){
+                $visiteur = $repVisiteur->findOneByNom($visiteur);
+                $array["visiteur"] = $visiteur;
+            }
+            
+            $fiches = $repFicheFrais->findBy($array);
+        }
         
         return $this->render('GsbBundle:Body:ConsulterFicheDeFrais.html.twig', array(
             'form' => $form->createView(),
-            'fiches' => $fiches));
+            'fiches' => $fiches, "detailPage" => $detailPage));
     }
-    
-    
 }

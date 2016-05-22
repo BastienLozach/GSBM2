@@ -10,14 +10,26 @@ gsb_deconnexion:
     path:     /deconnexion
     defaults: { _controller: GsbBundle:Connexion:deconnexion }
     
-gsb_consulter:
-    path:   /consulter
-    defaults: { _controller: GsbBundle:Consulter:consulter }
+gsb_consulterHistorique:
+    path:   /consulterHistorique
+    defaults: { _controller: GsbBundle:Consulter:consulterHistorique }
     
-gsb_consulterA:
-    path:   /consulterA
-    defaults: { _controller: GsbBundle:Consulter:consulterA }
+gsb_consulterARembourser:
+    path:   /consulterARembourser
+    defaults: { _controller: GsbBundle:Consulter:consulterARembourser }
+
+gsb_consulterAValider:
+    path:   /consulterAValider
+    defaults: { _controller: GsbBundle:Consulter:consulterAValider }
+
+gsb_detailFiche:
+    path:   /detailFiche/{id}
+    defaults: { _controller: GsbBundle:Detail:detailFiche }
     
-gsb_consulterB:
-    path:   /consulterB
-    defaults: { _controller: GsbBundle:Consulter:consulterB }
+gsb_detailFicheARembourser:
+    path:   /detailFicheARembourser/{id}
+    defaults: { _controller: GsbBundle:Detail:detailFiche  }
+    
+gsb_detailFicheAValider:
+    path:   /detailFicheAValider/{id}
+    defaults: { _controller: GsbBundle:Detail:detailFicheAValider }
