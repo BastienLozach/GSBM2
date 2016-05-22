@@ -1,0 +1,7 @@
+gsb_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: GsbBundle:Default:index }
+
+gsb_homepage2:
+    path:     /test
+    defaults: { _controller: GsbBundle:Connexion:connexion }
