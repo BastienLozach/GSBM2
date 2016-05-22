@@ -54,13 +54,21 @@
         <th>a l'unite</th>
         <th>quantite</th>
         <th>montant total</th>
+        <th>options</th>
         {% for ligneF in fiche.LigneFraisForfait %}
         <tr>
             <td>{{ligneF.fraisForfait.libelle}}</td>
             <td>{{ligneF.fraisForfait.montant}}</td>
             <td>{{ligneF.quantite}}</td>
             <td>{{ligneF.quantite * ligneF.fraisForfait.montant}}</td>
-        </tr>   
+            {% if app.session.get("typeUtilisateur") == "visiteur" %}
+                <td>
+                    <a href="{{ path("gsb_visiteur_modifierLigne", {"id" : ligneF.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>  
+                </td>
+            {% endif %}
+        </tr>
         
         {% endfor%}
     </table>
@@ -74,29 +82,59 @@
         <th>montant</th>
         <th>etat</th>
         <th>options</th>
+        
         {% for ligneHF in fiche.LigneFraisHorsForfait %}
         <tr>
             <td>{{ligneHF.libelle}}</td>
             <td>{{ligneHF.dateFrais.format("d/m/y")}}</td>
             <td>{{ligneHF.montant}}</td>
             <td>{{ligneHF.etat.libelle}}</td>
-            {% if ligneHF.etat.libelle == "A VALIDER" %}
+            {% if app.session.get("typeUtilisateur") == "comptable" and ligneHF.etat.libelle == "A VALIDER" %}
                 <td>
-                    <button class="btn btn-success">Valider</button>
-                    <button class="btn btn-danger">Refuser</button>
+                    <a href="{{ path("gsb_comptable_validerFrais", {"id" : ligneHF.id}) }}">
+                        <button class="btn btn-success">Valider</button>
+                    </a>
+                    <a href="{{ path("gsb_comptable_refuserFrais", {"id" : ligneHF.id}) }}">
+                        <button class="btn btn-danger">Refuser</button>
+                    </a>
                 </td>
+                
+            {% elseif app.session.get("typeUtilisateur") == "visiteur" and ligneHF.etat.libelle == "A VALIDER" %}
+            <td>
+                <a href="{{ path("gsb_visiteur_modifierLigneHorsForfait", {"id" : ligneHF.id}) }}">
+                    <button class="btn btn-primary">Modifier</button>
+                </a>  
+                <a href="{{ path("gsb_visiteur_supprimerLigneHorsForfait", {"id" : ligneHF.id}) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </a>
+            </td>
             {% endif %}
         </tr>   
         
         {% endfor%}
     </table>    
+    {% if app.session.get("typeUtilisateur") == "visiteur" %}
+        <a href="{{ path("gsb_visiteur_ajouterLigneHorsForfait", {"id" : fiche.id}) }}">
+            <button class="btn btn-primary">Ajouter un frais hors forfait</button>
+        </a>
+    {% endif %}
     
-    <button class="btn btn-success">Valider</button>
     
-    <a href="{{ path("gsb_consulterHistorique") }}">
-        <button class="btn btn-primary">Retour</button>
+    {% if app.session.get("typeUtilisateur") == "comptable" and fiche.etat.libelle != "VALIDE" and fiche.etat.libelle != "REMBOURSE" %}
+    <a href="{{ path("gsb_comptable_validerFiche", {"id" : fiche.id}) }}">
+        <button class="btn btn-success">Valider</button>
     </a>
     
+    {% elseif app.session.get("typeUtilisateur") == "comptable" and fiche.etat.libelle == "VALIDE" %}
+    <a href="{{ path("gsb_comptable_rembourserFiche", {"id" : fiche.id}) }}">
+        <button class="btn btn-success">Rembourser</button>
+    </a>   
+    
+    {% endif %}
+    
+    <a href="{{ path((app.session.get("typeUtilisateur") != "visiteur") ? "gsb_comptable_consulterHistorique" : "gsb_visiteur_consulterHistorique") }}">
+        <button class="btn btn-primary">Retour</button>
+    </a>
     
 </div>
 {% endblock %}

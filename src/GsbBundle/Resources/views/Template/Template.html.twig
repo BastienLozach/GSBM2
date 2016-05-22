@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +24,7 @@
         
         <!-- Partie Header -->
         <div class="headerGsb">
-            <p>Titre de la page : {% block title %}{% endblock %} !</p>
+            <h4>{% block title %}{% endblock %} </h4>
         </div>
         
         
@@ -46,23 +46,36 @@
                 
                 {% if app.session.get("typeUtilisateur") == "comptable" %}
                     <li>
-                        <a href="{{ path("gsb_consulterAValider") }}">Liste des fiches de frais à valider</a>
+                        <a href="{{ path("gsb_comptable_consulterAValider") }}">Liste des fiches de frais à valider</a>
                     </li>
                     <li>
-                        <a href="{{ path("gsb_consulterHistorique") }}">Historique des fiches de frais</a>
+                        <a href="{{ path("gsb_comptable_consulterHistorique") }}">Historique des fiches de frais</a>
                     </li>
                     <li>
-                        <a href="{{ path("gsb_consulterARembourser") }}">Liste des fiches des frais à rembourser</a>
+                        <a href="{{ path("gsb_comptable_consulterARembourser") }}">Liste des fiches des frais à rembourser</a>
                     </li>
                 {% elseif app.session.get("typeUtilisateur") == "visiteur" %}
                     <li>
-                        <a href="{{ path('gsb_consulter') }}">Consulter fiche de frais</a>
+                        Fiche de frais :
+                        <ul>
+                            <li>
+                                <a href="{{ path("gsb_visiteur_consulterHistorique") }}">Historique</a>
+                            </li>
+                            <li>
+                                <a href="{{ path("gsb_visiteur_consulterARembourser") }}">A rembourser</a>
+                            </li>
+                            <li>
+                                <a href="{{ path("gsb_visiteur_consulterAValider") }}">A valider</a>
+                            </li>
+                            <li>
+                                <a href="{{ path("gsb_visiteur_consulterRemboursees") }}">Remboursées</a>
+                            </li>
+                        </ul>
+                        
                     </li>
+                    <br/>
                     <li>
-                        <a href="#">Nouvelle fiche de frais</a>
-                    </li>
-                    <li>
-                        <a href="#">Voir remboursement</a>
+                        <a href="{{ path("gsb_visiteur_ajouterFiche") }}">Nouvelle fiche de frais</a>
                     </li>
                 {% endif %}
                 
@@ -71,7 +84,6 @@
         
         <!-- Partie Contenu -->
         <div class="contenu">
-            {#{% include('GsbBundle:Body:' ~ page ~ '.html.twig') %}#}
             {% block body %}{% endblock %}
         </div>
     </div>

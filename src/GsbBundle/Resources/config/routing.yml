@@ -10,26 +10,87 @@ gsb_deconnexion:
     path:     /deconnexion
     defaults: { _controller: GsbBundle:Connexion:deconnexion }
     
-gsb_consulterHistorique:
-    path:   /consulterHistorique
-    defaults: { _controller: GsbBundle:Consulter:consulterHistorique }
     
-gsb_consulterARembourser:
-    path:   /consulterARembourser
-    defaults: { _controller: GsbBundle:Consulter:consulterARembourser }
+    
+gsb_comptable_consulterHistorique:
+    path:   /comptable/consulterHistorique
+    defaults: { _controller: GsbBundle:ComptableConsulter:consulterHistorique }
+    
+gsb_comptable_consulterARembourser:
+    path:   /comptable/consulterARembourser
+    defaults: { _controller: GsbBundle:ComptableConsulter:consulterARembourser }
 
-gsb_consulterAValider:
-    path:   /consulterAValider
-    defaults: { _controller: GsbBundle:Consulter:consulterAValider }
+gsb_comptable_consulterAValider:
+    path:   /comptable/consulterAValider
+    defaults: { _controller: GsbBundle:ComptableConsulter:consulterAValider }
 
-gsb_detailFiche:
-    path:   /detailFiche/{id}
-    defaults: { _controller: GsbBundle:Detail:detailFiche }
+gsb_comptable_detailFiche:
+    path:   /comptable/detailFiche/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:detailFiche }
     
-gsb_detailFicheARembourser:
-    path:   /detailFicheARembourser/{id}
-    defaults: { _controller: GsbBundle:Detail:detailFiche  }
+gsb_comptable_detailFicheARembourser:
+    path:   /comptable/detailFicheARembourser/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:detailFiche  }
     
-gsb_detailFicheAValider:
-    path:   /detailFicheAValider/{id}
-    defaults: { _controller: GsbBundle:Detail:detailFicheAValider }
+gsb_comptable_detailFicheAValider:
+    path:   /comptable/detailFicheAValider/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:detailFicheAValider }
+    
+gsb_comptable_validerFrais:
+    path:   /comptable/validerFrais/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:validerFrais }
+    
+gsb_comptable_refuserFrais:
+    path:   /comptable/refuserFrais/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:refuserFrais  }
+    
+gsb_comptable_validerFiche:
+    path:   /comptable/validerFiche/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:validerFiche }
+
+gsb_comptable_rembourserFiche:
+    path:   /comptable/rembourserFiche/{id}
+    defaults: { _controller: GsbBundle:ComptableDetail:rembourserFiche }
+    
+    
+    
+    
+gsb_visiteur_consulterHistorique:
+    path:   /visiteur/consulterHistorique
+    defaults: { _controller: GsbBundle:VisiteurConsulter:consulterHistorique }
+    
+gsb_visiteur_consulterARembourser:
+    path:   /visiteur/consulterARembourser
+    defaults: { _controller: GsbBundle:VisiteurConsulter:consulterARembourser }
+
+gsb_visiteur_consulterAValider:
+    path:   /visiteur/consulterAValider
+    defaults: { _controller: GsbBundle:VisiteurConsulter:consulterAValider }
+    
+gsb_visiteur_consulterRemboursees:
+    path:   /visiteur/consulterRemboursees
+    defaults: { _controller: GsbBundle:VisiteurConsulter:consulterRemboursees }
+    
+gsb_visiteur_detailFiche:
+    path:   /visiteur/detailFiche/{id}
+    defaults: { _controller: GsbBundle:VisiteurDetail:detailFiche }
+        
+gsb_visiteur_modifierLigne:
+    path:   /visiteur/modifierLigne/{id}
+    defaults: { _controller: GsbBundle:VisiteurRenseigner:modifierLigne }
+    
+gsb_visiteur_modifierLigneHorsForfait:
+    path:   /visiteur/modifierLigneHorsForfait/{id}
+    defaults: { _controller: GsbBundle:VisiteurRenseigner:modifierLigneHorsForfait }
+    
+gsb_visiteur_ajouterLigneHorsForfait:
+    path:   /visiteur/ajouterLigneHorsForfait/{id}
+    defaults: { _controller: GsbBundle:VisiteurRenseigner:ajouterLigneHorsForfait }
+    
+gsb_visiteur_supprimerLigneHorsForfait:
+    path:   /visiteur/supprimerLigneHorsForfait/{id}
+    defaults: { _controller: GsbBundle:VisiteurRenseigner:supprimerLigneHorsForfait }
+    
+gsb_visiteur_ajouterFiche:
+    path:   /visiteur/ajouterFiche
+    defaults: { _controller: GsbBundle:VisiteurRenseigner:ajouterFiche }

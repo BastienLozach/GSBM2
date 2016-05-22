@@ -46,14 +46,17 @@ class ConnexionController extends Controller
                 
                 if($utilisateurLambda->getType() == "comptable"){
                     $utilisateur = $repCompta->findOneBy(array("utilisateur" => $utilisateurLambda->getId()));
-                    
+                    $session->set("typeUtilisateur", $utilisateurLambda->getType());
+                    $session->set("utilisateur", $utilisateur);
+                    return $this->redirectToRoute("gsb_comptable_consulterHistorique");
                 }else if($utilisateurLambda->getType() == "visiteur"){
                     $utilisateur = $repVisi->findOneBy(array("utilisateur" => $utilisateurLambda->getId()));
-                }else{}
+                    $session->set("typeUtilisateur", $utilisateurLambda->getType());
+                    $session->set("utilisateur", $utilisateur);
+                    return $this->redirectToRoute("gsb_visiteur_consulterHistorique");
+                }
                 
-                $session->set("typeUtilisateur", $utilisateurLambda->getType());
-                $session->set("utilisateur", $utilisateur);
-                return $this->redirectToRoute("gsb_consulterHistorique");
+                
             }
             return $this->render('GsbBundle:Connexion:Connexion.html.twig', array('form' => $form->createView()));
         }

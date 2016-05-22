@@ -17,7 +17,8 @@ class LigneFraisForfaitType extends AbstractType
         $builder
             ->add('quantite')
             ->add('fraisForfait')
-            ->add('ficheFrais')
+            //->add('ficheFrais')
+                ->add('valider', 'submit');
         ;
     }
     

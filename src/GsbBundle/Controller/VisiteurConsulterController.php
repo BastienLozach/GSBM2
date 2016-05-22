@@ -12,7 +12,7 @@ class VisiteurConsulterController extends Controller
         $detailPage = array();
         
         $detailPage["titre"] = "Consulter fiche de frais";
-        $detailPage["boutonDetail"] = "gsb_visiteur_detailFiche";
+        //$detailPage["boutonDetail"] = "gsb_visiteur_detailFiche";
         $detailPage["page"] = "gsb_visiteur_consulterHistorique";
         
         return $this->consulter($detailPage);
@@ -22,7 +22,7 @@ class VisiteurConsulterController extends Controller
         $detailPage = array();
         
         $detailPage["titre"] = "Consulter fiche de frais a rembourser";
-        $detailPage["boutonDetail"] = "gsb_visiteur_detailFicheARembourser";
+        //$detailPage["boutonDetail"] = "gsb_visiteur_detailFicheARembourser";
         $detailPage["page"] = "gsb_visiteur_consulterARembourser";
         
         return $this->consulter($detailPage);
@@ -32,23 +32,24 @@ class VisiteurConsulterController extends Controller
         $detailPage = array();
         
         $detailPage["titre"] = "Consulter fiche de frais a valider";
-        $detailPage["boutonDetail"] = "gsb_visiteur_detailFicheAValider";
+        //$detailPage["boutonDetail"] = "gsb_visiteur_detailFicheAValider";
         $detailPage["page"] = "gsb_visiteur_consulterAValider";
         
         return $this->consulter($detailPage);
     }
     
-    public function consulterRembourseAction(){
+    public function consulterRembourseesAction(){
         $detailPage = array();
         
         $detailPage["titre"] = "Consulter fiche de frais a valider";
-        $detailPage["boutonDetail"] = "gsb_visiteur_detailFicheRembourse";
-        $detailPage["page"] = "gsb_visiteur_consulterRembourse";
+        //$detailPage["boutonDetail"] = "gsb_visiteur_detailFicheRembourse";
+        $detailPage["page"] = "gsb_visiteur_consulterRemboursees";
         
         return $this->consulter($detailPage);
     }
     
     private function consulter($detailPage){
+        $detailPage["boutonDetail"] = "gsb_visiteur_detailFiche";
         // Récupération des services
         $repFicheFrais = $this->getDoctrine()->getRepository("GsbBundle:FicheFrais");
         $repVisiteur = $this->getDoctrine()->getRepository("GsbBundle:Visiteur");
@@ -64,15 +65,15 @@ class VisiteurConsulterController extends Controller
                 break;
             case "gsb_visiteur_consulterARembourser":
                 $etat = $repEtat->findOneById(2);
-                $fiches = $repFicheFrais->findBy(array("etat" => $etat));
+                $fiches = $repFicheFrais->findBy(array("etat" => $etat, "visiteur" => $session->get("utilisateur")));
                 break;
             case "gsb_visiteur_consulterAValider":
                 $etat = $repEtat->findOneById(1);
-                $fiches = $repFicheFrais->findBy(array("etat" => $etat));
+                $fiches = $repFicheFrais->findBy(array("etat" => $etat, "visiteur" => $session->get("utilisateur")));
                 break;
-            case "gsb_visiteur_consulterRembourse":
+            case "gsb_visiteur_consulterRemboursees":
                 $etat = $repEtat->findOneById(3);
-                $fiches = $repFicheFrais->findBy(array("etat" => $etat));
+                $fiches = $repFicheFrais->findBy(array("etat" => $etat, "visiteur" => $session->get("utilisateur")));
                 break;
             default:
                 break;

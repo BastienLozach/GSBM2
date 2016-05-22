@@ -1,0 +1,22 @@
+{% extends "GsbBundle:Template:Template.html.twig" %}
+
+{% block title %}
+    Renseigner Ligne Hors Forfait
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1>RenseignerLigneHorsForfait</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        {% form_theme form 'GsbBundle:Template:TemplateForm.html.twig' %}
+        
+        {{form(form)}}
+    </div>
+</div>
+
+{% endblock %}
