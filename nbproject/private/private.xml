@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Controller/DefaultController.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/EtatRepository.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/Etat.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/Visiteur.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Entity/Fichefrais.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Controller/ConnexionController.php</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/views/Connexion/index.html.twig</file>
-            <file>file:/var/www/GSB_Mission2/src/GsbBundle/Resources/config/routing.yml</file>
-            <file>file:/var/www/GSB_Mission2/app/AppCache.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -13,9 +13,29 @@
     {% endstylesheets %}
  
   </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <button type="button" class="btn btn-primary">Primary</button>
+  <body>    
+    <div class="container-fluid">
+        <div class="well">
+            
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1>Hello, {{name}}!</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1>Connexion</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
     
   </body>
 </html>

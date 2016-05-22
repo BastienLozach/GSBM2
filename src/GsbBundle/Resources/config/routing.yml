@@ -2,6 +2,10 @@ gsb_homepage:
     path:     /hello/{name}
     defaults: { _controller: GsbBundle:Default:index }
 
-gsb_homepage2:
-    path:     /test
+gsb_connexion:
+    path:     /
+    defaults: { _controller: GsbBundle:Connexion:connexion }
+
+gsb_connexion2:
+    path:     /connexion
     defaults: { _controller: GsbBundle:Connexion:connexion }
