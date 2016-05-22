@@ -25,25 +25,31 @@ and open the template in the editor.
 }
 
 .sideMenu ul li.sideMenuHead{
-    color: transparent;
     padding: 10px 10px 10px 0;
     font-size: 35px;
 }
 
 .sideMenu ul{
-    color: transparent;
 }
 
 .sideMenu ul li{
-    color: transparent;
-    font-size: 19px;
+    list-style: none;
+    font-size: 15px;
 }
 
 .sideMenu ul li a{
-    list-style: none;
+    color: #000;
+}
+
+.sideMenu ul li p{
     color: #000;
 }
 
 .contenu{
     margin-left: 200px;
+}
+
+.deconnexion{
+    font-size: 12px;
+    
 }

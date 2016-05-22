@@ -3,16 +3,24 @@
 namespace GsbBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ConnexionController extends Controller
 {
-    public function indexAction($name)
-    {
-        return $this->render('GsbBundle:Default:index.html.twig', array('name' => $name));
+    
+    public function deconnexionAction(){
+        //$session = new Session();
+        $session = $this->container->get('session');
+        $session->invalidate();
+        return $this->redirectToRoute("gsb_connexion");
     }
     
     public function connexionAction(){
-        $name = "test";
+        // Récupération des services
+        $rep = $this->getDoctrine()->getManager()->getRepository("GsbBundle:Utilisateur");
+        $repVisi = $this->getDoctrine()->getManager()->getRepository("GsbBundle:Visiteur");
+        $repCompta = $this->getDoctrine()->getManager()->getRepository("GsbBundle:Comptable");
+        // Fin récupération des services
         
         $form = $this->createFormBuilder()
                 ->add('login', 'text')
@@ -24,19 +32,34 @@ class ConnexionController extends Controller
         $request = $this->container->get('request');
         $form->handleRequest($request);
         
+        $session = $this->container->get('session');
+        $session->start();
+        
         if($form->isValid()){
             $data = $form->getData();
             // Condition pour la connexion
             // Reste a allez vérifier dans la BDD
             
-            if($data["login"] == "Moi" && $data["motDePasse"] == "azerty"){
-                return $this->render('GsbBundle:Template:Template.html.twig', array(
-                    'page' => "Accueil",
-                    'name' => $data["login"]));
+            $utilisateurLambda = $rep->findOneBy(array("login" => $data["login"], "mdp" => $data["motDePasse"]));
+            
+            if($utilisateurLambda != null){
+                
+                if($utilisateurLambda->getType() == "comptable"){
+                    $utilisateur = $repCompta->findOneBy(array("utilisateur" => $utilisateurLambda->getId()));
+                    
+                }else if($utilisateurLambda->getType() == "visiteur"){
+                    $utilisateur = $repVisi->findOneBy(array("utilisateur" => $utilisateurLambda->getId()));
+                }else{}
+                
+                $session->set("typeUtilisateur", $utilisateurLambda->getType());
+                $session->set("utilisateur", $utilisateur);
+                return $this->redirectToRoute("gsb_consulter");
             }
+            return $this->render('GsbBundle:Connexion:Connexion.html.twig', array('form' => $form->createView()));
         }
         
-        return $this->render('GsbBundle:Connexion:index.html.twig', array('name' => $name, 'form' => $form->createView()));
+        return $this->render('GsbBundle:Connexion:Connexion.html.twig', array(
+            'form' => $form->createView()));
         
     }
 }

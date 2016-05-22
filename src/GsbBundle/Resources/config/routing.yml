@@ -1,7 +1,3 @@
-gsb_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: GsbBundle:Default:index }
-
 gsb_connexion:
     path:     /
     defaults: { _controller: GsbBundle:Connexion:connexion }
@@ -9,3 +5,19 @@ gsb_connexion:
 gsb_connexion2:
     path:     /connexion
     defaults: { _controller: GsbBundle:Connexion:connexion }
+
+gsb_deconnexion:
+    path:     /deconnexion
+    defaults: { _controller: GsbBundle:Connexion:deconnexion }
+    
+gsb_consulter:
+    path:   /consulter
+    defaults: { _controller: GsbBundle:Consulter:consulter }
+    
+gsb_consulterA:
+    path:   /consulterA
+    defaults: { _controller: GsbBundle:Consulter:consulterA }
+    
+gsb_consulterB:
+    path:   /consulterB
+    defaults: { _controller: GsbBundle:Consulter:consulterB }

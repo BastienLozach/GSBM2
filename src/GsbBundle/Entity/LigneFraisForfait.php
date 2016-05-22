@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LigneFraisForfait
  *
- * @ORM\Table(name="LigenFraisForfait")
+ * @ORM\Table(name="LigneFraisForfait")
  * @ORM\Entity(repositoryClass="GsbBundle\Entity\LigneFraisForfaitRepository")
  */
 class LigneFraisForfait

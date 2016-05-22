@@ -1,1 +1,69 @@
+{% extends "GsbBundle:Template:Template.html.twig"%}
 
+{% block title %}
+    Consulter fiche de frais
+{% endblock %}
+
+{% block body %}
+<br/>
+
+<div class="well">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1">
+                <h4>Recherchez</h4>
+            </div>
+        </div>    
+        
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_start(form) }}
+                <label>Date : </label>
+                {{ form_widget(form.mois.day, { 'attr': {'style': 'display:none'} }) }} 
+                {{ form_widget(form.mois.month, { 'attr': {'class': 'form-control'} }) }}
+                {{ form_widget(form.mois.year, { 'attr': {'class': 'form-control'} }) }}
+                
+                <label>Visiteur : </label>
+                {{ form_widget(form.visiteur, { 'attr' : { 'class': 'form-control' } }) }}
+                
+                {{ form_widget(form.rechercher, { 'attr' : { 'class': 'btn btn-primary' } }) }}
+                
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+        
+<br/>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>Fiche de frais</h4>
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <th>Num</th>
+            <th>Date</th>
+            <th>Visiteur</th>
+            <th>Détails</th>
+            
+            {% for fiche in fiches %}
+                <tr>
+                    <td>{{ fiche.id }}</td>
+                    <td>{{ fiche.mois }}/{{ fiche.annee }}</td>
+                    <td>{{ fiche.visiteur.nom }}</td>
+                    <td>test</td>
+                </tr>
+            {% endfor %}
+            
+            
+        </table>
+    </div>
+</div>
+            
+{% endblock %}

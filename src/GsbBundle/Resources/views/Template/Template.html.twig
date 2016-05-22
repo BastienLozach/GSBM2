@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page }}</title>
+    <title>GSB</title>
 
     {% stylesheets '@GsbBundle/Resources/public/css/bootstrap.css' %}
 
@@ -24,38 +24,55 @@
         
         <!-- Partie Header -->
         <div class="headerGsb">
-            <p>Titre de la page : {{ page }} !</p>
+            <p>Titre de la page : {% block title %}{% endblock %} !</p>
         </div>
         
         
         <!-- Partie Menu -->
         <div class="sideMenu">
             <ul>
-                <li class="sideMenuHead">
+                <!--<li class="sideMenuHead">
                     <a href="#">Menu</a>
+                </li>-->
+                
+                <li>
+                    {{ app.session.get("utilisateur").nom }} {{ app.session.get("utilisateur").prenom }}
                 </li>
                 <li>
-                    <a href="#">Test 1</a>
+                    <a class="deconnexion" href="{{ path('gsb_deconnexion') }}">Déconnexion</a>
                 </li>
-                <li>
-                    <a href="#">Test 2</a>
-                </li>
-                <li>
-                    <a href="#">Test 3</a>
-                </li>
-                <li>
-                    <a href="#">Test 4</a>
-                </li>
-                <li>
-                    <a href="#">Test 5</a>
-                </li>
+                
+                <br/>
+                
+                {% if app.session.get("typeUtilisateur") == "comptable" %}
+                    <li>
+                        <a href="#">Liste des fiches de frais à valider</a>
+                    </li>
+                    <li>
+                        <a href="#">Historique des fiches de frais</a>
+                    </li>
+                    <li>
+                        <a href="#">Liste des fiches des frais à rembourser</a>
+                    </li>
+                {% elseif app.session.get("typeUtilisateur") == "visiteur" %}
+                    <li>
+                        <a href="{{ path('gsb_consulter') }}">Consulter fiche de frais</a>
+                    </li>
+                    <li>
+                        <a href="#">Nouvelle fiche de frais</a>
+                    </li>
+                    <li>
+                        <a href="#">Voir remboursement</a>
+                    </li>
+                {% endif %}
+                
             </ul>
         </div>
         
-        
         <!-- Partie Contenu -->
         <div class="contenu">
-            {% include('GsbBundle:Body:' ~ page ~ '.html.twig') %}
+            {#{% include('GsbBundle:Body:' ~ page ~ '.html.twig') %}#}
+            {% block body %}{% endblock %}
         </div>
     </div>
     

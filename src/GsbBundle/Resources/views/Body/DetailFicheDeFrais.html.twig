@@ -1,0 +1,91 @@
+{% extends "GsbBundle:Template:Template.html.twig"%}
+
+{% block title %}
+    Details fiche de frais
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    
+    {% if typeUtilisateur == "comptable" %}
+        <dl class="dl-horizontal">
+            <dt>Visiteur</dt>
+            <dd>{{fiche.visiteur.nom}} {{fiche.visiteur.prenom}}</dd>
+        </dl>
+    {% endif%}
+    
+    <dl class="dl-horizontal">
+        <dt>date</dt>
+        <dd>{{fiche.mois}}/{{fiche.annee}}</dd>
+    </dl>
+    
+    <dl class="dl-horizontal">
+        <dt>Dernière modification</dt>
+        <dd>{{fiche.dateModif}}</dd>
+    </dl>
+    
+    <dl class="dl-horizontal">
+        <dt>Etat</dt>
+        <dd>{{fiche.etat}}</dd>
+    </dl>
+    
+    {# version tableau
+    <table class="table table-bordered">
+        <tr>
+            <td>date</td>
+            <td>{{fiche.mois}}/{{fiche.annee}}</td>
+        </tr>
+        
+        <tr>
+            <td>Dernière modification</td>
+            <td>{{fiche.dateModif}}</td>
+        </tr>
+        <tr>
+            <td>Etat</td>
+            <td>{{fiche.etat}}</td>
+        </tr>
+    </table>
+    #}
+    <h1>Frais au Forfait</h1>
+            
+    <table class="table table-bordered">    
+        <th>
+            <td>Frais</td>
+            <td>a l'unite</td>
+            <td>quantite</td>
+            <td>montant total</td>
+        </th>
+        {% for ligneF in fiche.LigneFraisForfait %}
+        <tr>
+            <td>{{ligneF.fraisForfait.libelle}}</td>
+            <td>{{ligneF.fraisForfait.montant}}</td>
+            <td>{{ligneF.quantite}}</td>
+            <td>{{ligneFF.quantite * ligneF.fraisForfait.montant}}</td>
+        </tr>   
+        
+        {% endfor%}
+    </table>
+        
+            
+    <h1>Frais Hors Forfait</h1>
+            
+    <table class="table table-bordered">    
+        <th>
+            <td>libelle</td>
+            <td>date</td>
+            <td>montant</td>
+            <td>etat</td>
+        </th>
+        {% for ligneHF in fiche.LigneFraisHorsForfait %}
+        <tr>
+            <td>{{ligneHF.libelle}}</td>
+            <td>{{ligneHF.date}}</td>
+            <td>{{ligneHF.montant}}</td>
+            <td>{{ligneHF.etat}}</td>
+        </tr>   
+        
+        {% endfor%}
+    </table>    
+    
+</div>
+{% endblock %}
