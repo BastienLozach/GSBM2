@@ -18,6 +18,7 @@ class LigneFraisHorsForfaitType extends AbstractType
             ->add('libelle')
             ->add('dateFrais')
             ->add('montant')
+            ->add('nbJustificatif')
             //->add('etat')
             //->add('ficheFrais')
             ->add("Valider", "submit")

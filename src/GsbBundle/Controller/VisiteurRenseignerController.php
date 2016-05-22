@@ -4,17 +4,13 @@ namespace GsbBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use GsbBundle\Entity\FicheFrais;
 use GsbBundle\Form\FicheFraisType;
+use GsbBundle\Entity\LigneFraisForfait;
 use GsbBundle\Form\LigneFraisForfaitType;
 use GsbBundle\Form\LigneFraisHorsForfaitType;
 use GsbBundle\Entity\LigneFraisHorsForfait;
 
 class VisiteurRenseignerController extends Controller
-{
-    public function indexAction($name)
-    {
-        return $this->render('GsbBundle:Default:index.html.twig', array('name' => $name));
-    }
-    
+{    
     public function modifierFicheAction($id){
         
         $rep = $this->getDoctrine()->getRepository('GsbBundle:FicheFrais');
@@ -27,6 +23,7 @@ class VisiteurRenseignerController extends Controller
         
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
+            $fiche->setDateModif(new \DateTime());
             $em->persist($fiche);
             
             $em->flush();
@@ -50,6 +47,10 @@ class VisiteurRenseignerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($ligne);
             
+            $fiche = $ligne->getFicheFrais();
+            $fiche->setDateModif(new \DateTime());
+            $em->persist($fiche);
+            
             $em->flush();
             return $this->redirectToRoute("gsb_visiteur_detailFiche", array("id"=> $ligne->getFicheFrais()->getId()));
         }
@@ -70,6 +71,10 @@ class VisiteurRenseignerController extends Controller
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($ligne);
+            
+            $fiche = $ligne->getFicheFrais();
+            $fiche->setDateModif(new \DateTime());
+            $em->persist($fiche);
             
             $em->flush();
             return $this->redirectToRoute("gsb_visiteur_detailFiche", array("id"=> $ligne->getFicheFrais()->getId()));
@@ -97,6 +102,10 @@ class VisiteurRenseignerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($ligne);
             
+            $fiche = $ligne->getFicheFrais();
+            $fiche->setDateModif(new \DateTime());
+            $em->persist($fiche);
+            
             $em->flush();
             return $this->redirectToRoute("gsb_visiteur_detailFiche", array("id"=> $ligne->getFicheFrais()->getId()));
         }
@@ -110,6 +119,11 @@ class VisiteurRenseignerController extends Controller
         $ligne = $rep->findOneById($id) ;
         
         $em = $this->getDoctrine()->getManager();
+        
+        $fiche = $ligne->getFicheFrais();
+        $fiche->setDateModif(new \DateTime());
+        $em->persist($fiche);
+        
         $em->remove($ligne);
             
         $em->flush();
@@ -117,8 +131,20 @@ class VisiteurRenseignerController extends Controller
     }
     
     public function ajouterFicheAction(){
+        $repFiche = $this->getDoctrine()->getRepository('GsbBundle:FicheFrais');
+        $dateToday = new \DateTime();
+        
+        $ficheExistante = $repFiche->findOneBy(array("mois" => $dateToday->format("m"), "annee" => $dateToday->format("Y"))) ;
+        if ($ficheExistante !== null){
+            return $this->redirectToRoute("gsb_visiteur_detailFiche", array("id"=> $ficheExistante->getId()));
+        }
+        
+        
+        
+        
         $repVisiteur = $this->getDoctrine()->getRepository('GsbBundle:Visiteur');
         $repEtat = $this->getDoctrine()->getRepository('GsbBundle:Etat');
+        $repFrais = $this->getDoctrine()->getRepository('GsbBundle:FraisForfait');
         
         $em = $this->getDoctrine()->getManager();
         
@@ -126,16 +152,29 @@ class VisiteurRenseignerController extends Controller
         
         $visiteur = $repVisiteur->findOneById($session->get("utilisateur")->getId());
         
+        
+        
         $fiche = new FicheFrais();
         $fiche->setVisiteur($visiteur);
         $fiche->setEtat($repEtat->findOneById(1));
-        $fiche->setAnnee(2016);
-        $fiche->setMois(04);
-        $fiche->setMontantValide(252.00);
-        $fiche->setNbJustificatif(1);
-        $fiche->setDateModif(new \DateTime());
+        $fiche->setAnnee($dateToday->format("Y"));
+        $fiche->setMois($dateToday->format("m"));
+        $fiche->setMontantValide(0.00);
+        $fiche->setNbJustificatif(0);
+        $fiche->setDateModif($dateToday);
+        
+        $toutLesTypes = $repFrais->findAll();
         
         $em->persist($fiche) ;
+                
+        foreach($toutLesTypes as $unTypeDeFrais){
+            $ligne = new LigneFraisForfait();
+            $ligne->setFicheFrais($fiche);
+            $ligne->setFraisForfait($unTypeDeFrais);
+            $ligne->setQuantite(0);
+            $em->persist($ligne) ;
+        }
+        
         
         $em->flush();
         return $this->redirectToRoute("gsb_visiteur_detailFiche", array("id"=> $fiche->getId()));

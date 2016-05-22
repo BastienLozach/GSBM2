@@ -53,6 +53,13 @@ class LigneFraisHorsForfait
      */
     private $ficheFrais;
 
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbJustificatif", type="integer", nullable=true)
+     */
+    private $nbJustificatif;
     /**
      * Get id
      *
@@ -176,5 +183,28 @@ class LigneFraisHorsForfait
     public function getFicheFrais()
     {
         return $this->ficheFrais;
+    }
+
+    /**
+     * Set nbJustificatif
+     *
+     * @param integer $nbJustificatif
+     * @return LigneFraisHorsForfait
+     */
+    public function setNbJustificatif($nbJustificatif)
+    {
+        $this->nbJustificatif = $nbJustificatif;
+
+        return $this;
+    }
+
+    /**
+     * Get nbJustificatif
+     *
+     * @return integer 
+     */
+    public function getNbJustificatif()
+    {
+        return $this->nbJustificatif;
     }
 }

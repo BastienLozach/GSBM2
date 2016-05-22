@@ -33,6 +33,11 @@ class ComptableDetailController extends Controller
         
         $fiche->setEtat($etat);
         
+        foreach($fiche->getLigneFraisForfait() as $uneLigne){
+            $montant = $uneLigne->getQuantite() * $uneLigne->getFraisForfait()->getMontant();
+            $fiche->setMontantValide($fiche->getMontantValide() + $montant);
+        }
+        
         $em = $this->getDoctrine()->getManager() ;
         $em->persist($fiche) ;
         $em->flush() ;
@@ -58,7 +63,6 @@ class ComptableDetailController extends Controller
     }
     
     public function validerFraisAction($id){
-        
         $repFrais = $this->getDoctrine()->getRepository('GsbBundle:LigneFraisHorsForfait');
         $frais = $repFrais->findOneById($id) ;
         
@@ -67,8 +71,15 @@ class ComptableDetailController extends Controller
         
         $frais->setEtat($etat);
         
+        $fiche = $frais->getFicheFrais();
+        $nbJustificatif = $frais->getNbJustificatif();
+        $montant = $frais->getMontant();
+        $fiche->setNbJustificatif($fiche->getNbJustificatif() + $nbJustificatif);
+        $fiche->setMontantValide($fiche->getMontantValide() + $montant);
+        
         $em = $this->getDoctrine()->getManager() ;
         $em->persist($frais) ;
+        $em->persist($fiche) ;
         $em->flush() ;
         
               
